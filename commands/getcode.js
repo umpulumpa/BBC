@@ -2,7 +2,7 @@ const {
     SlashCommandBuilder,
 } = require('discord.js');
 const { tryReadFile } = require('../functions/tryReadFile');
-const { trySetFile } = require('../functions/trySetfile');
+const { trySetFile } = require('../functions/trySetFile');
 
 const filePath = "./assets/data/codes.json"
 

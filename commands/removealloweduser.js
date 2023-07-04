@@ -3,7 +3,7 @@ const {
 } = require('discord.js');
 const { checkAdmin } = require('../functions/checkAdmin');
 const { tryReadFile } = require('../functions/tryReadFile');
-const { trySetFile } = require('../functions/trySetfile');
+const { trySetFile } = require('../functions/trySetFile');
 
 const filePath = "./assets/data/allowedUsers.json"
 

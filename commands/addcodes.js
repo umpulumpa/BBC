@@ -4,7 +4,7 @@ const {
 const { checkAdmin } = require('../functions/checkAdmin');
 const { checkAllowed } = require('../functions/checkAllowed');
 const { tryReadFile } = require('../functions/tryReadFile');
-const { trySetFile } = require('../functions/trySetfile');
+const { trySetFile } = require('../functions/trySetFile');
 
 const filePath = "./assets/data/codes.json"
 
