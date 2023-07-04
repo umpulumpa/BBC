@@ -6,10 +6,8 @@ const { checkAllowed } = require('../functions/checkAllowed');
 const { tryReadFile } = require('../functions/tryReadFile');
 const { trySetFile } = require('../functions/trySetFile');
 
-const filePath = "./assets/data/codes.json"
-
-function gameUpdate() {
-    let codeFile = tryReadFile(filePath)
+function gameUpdate(interaction) {
+    let codeFile = tryReadFile("codes.json", interaction.guild.id)
     if (codeFile === false) {
         return "There was an error trying to get the codes"
     }   
@@ -20,7 +18,7 @@ function gameUpdate() {
             newCodeList.push(code)
         }
     });
-    if (trySetFile(filePath , newCodeList) == false) {
+    if ((trySetFile(`./assets/data/servers/${interaction.guild.id}/codes.json`, newCodeList)) == false) {
         return "There was an error removing the old codes. <@244867479996727296>"
     } else {
         const removedCodesCount = codeFile.length - newCodeList.length
@@ -37,7 +35,7 @@ module.exports = {
         .setDescription('Removes all old game codes.'),
     async execute(client, interaction) {
         if (checkAllowed(interaction) || await checkAdmin(client, interaction)) {
-            return await interaction.reply({ content: gameUpdate(), ephemeral: true })
+            return await interaction.reply({ content: gameUpdate(interaction), ephemeral: true })
         } else {
             return await interaction.reply({ content: "You don't have permission to execute this command.", ephemeral: true })
         }

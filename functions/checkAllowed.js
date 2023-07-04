@@ -1,12 +1,9 @@
-const fs = require('fs');
-
-const filePath = "./assets/data/allowedUsers.json"
+const { tryReadFile } = require('./tryReadFile');
 
 module.exports.checkAllowed = function (interaction) {
-    const jsonData = fs.readFileSync(filePath, 'utf8');
     try {
-        const data = JSON.parse(jsonData);
-        if (data.includes(interaction.user.id)) {
+        const data = tryReadFile("allowedUsers.json", interaction.guild.id)
+        if (data !== false, data.includes(interaction.user.id)) {
             return true
         }
         return false

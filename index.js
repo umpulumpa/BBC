@@ -2,7 +2,21 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+let dev = false
+if (process.argv[2]) {
+	console.log("dev Mode")
+	dev = true
+}
+let configPath = ""
+if (dev == true) {
+	configPath = './dev-config.json'
+} else {
+	configPath = './config.json'
+}
+const { token } = require(configPath);
+
+
+const { logCommand } = require('./functions/logCommand');
 
 
 // Create a new client instance
@@ -43,9 +57,11 @@ client.on('interactionCreate', async interaction => {
 	
 		try {
 			await command.execute(client, interaction);
+			logCommand(client, interaction, true)
 		} catch (error) {
 			console.error(error);
 			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+			logCommand(client, interaction, false)
 		}
 	}	else if (interaction.isAutocomplete()) {
 		const command = interaction.client.commands.get(interaction.commandName);
@@ -65,8 +81,5 @@ client.on('interactionCreate', async interaction => {
 
 });
 
-// setInterval(async function() {
-//     client.emit('checkNotifications', client);
-// }, 30000);
 // Login to Discord with your client's token
 client.login(token);

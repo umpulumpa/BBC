@@ -1,7 +1,6 @@
 const {
     PermissionsBitField,
 } = require('discord.js');
-const fs = require('fs');
 
 module.exports.checkAdmin = async function (client, interaction) {
     try {

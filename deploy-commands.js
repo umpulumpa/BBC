@@ -2,7 +2,21 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
-const { clientId, token } = require('./config.json');
+
+let dev = false
+if (process.argv[2]) {
+	console.log("dev Mode")
+	dev = true
+}
+let configPath = ""
+if (dev == true) {
+	configPath = './dev-config.json'
+} else {
+	configPath = './config.json'
+}
+const { clientId, token } = require(configPath);
+
+
 
 const commands = [];
 const commandsPath = path.join(__dirname, 'commands');

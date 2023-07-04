@@ -6,15 +6,13 @@ const { checkAllowed } = require('../functions/checkAllowed');
 const { tryReadFile } = require('../functions/tryReadFile');
 const { trySetFile } = require('../functions/trySetFile');
 
-const filePath = "./assets/data/codes.json"
-
 function tryAddCodes(interaction) {
     let codes = interaction.options.getString('codes');
     if (codes == undefined) {
         return "No codes provided"
     }
 
-    let codeFile = tryReadFile(filePath)
+    let codeFile = tryReadFile("codes.json", interaction.guild.id)
     if (codeFile === false) {
         return "There was an error trying to get existing codes"
     }
@@ -33,7 +31,7 @@ function tryAddCodes(interaction) {
         }
         codeFile.push(codeObject)
     });
-    if (trySetFile(filePath, codeFile)) {
+    if (trySetFile(`./assets/data/servers/${interaction.guild.id}/codes.json`, codeFile)) {
         return `Successfully added ${parsedCodeArray.length} codes`
     } else {
         return "There was an error adding the codes."
