@@ -26,7 +26,7 @@ module.exports.logCommand = async function (client, interaction, success) {
                 .setAuthor({ name: interaction.user.username, iconURL: interaction.user.displayAvatarURL()})
                 .setDescription(`**${interaction.user} used the */${interaction.commandName}* command**`)
                 .setTimestamp()
-                .setFooter({ text: interaction.id})
+                .setFooter({ text: interaction.user.id})
             
                 return await channel.send({ embeds: [logEmbed] });
             } else return false

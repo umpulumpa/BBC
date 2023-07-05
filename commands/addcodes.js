@@ -29,7 +29,8 @@ function tryAddCodes(interaction) {
             addedBy: interaction.user.username,
             dateadded: dateadded,
         }
-        codeFile.push(codeObject)
+        const found = codeFile.some(acode => acode.code === code);
+        if (!found) codeFile.push(codeObject);
     });
     if (trySetFile(`./assets/data/servers/${interaction.guild.id}/codes.json`, codeFile)) {
         return `Successfully added ${parsedCodeArray.length} codes`
