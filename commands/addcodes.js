@@ -37,7 +37,7 @@ function tryAddCodes(interaction) {
         };
     });
     if (trySetFile(`./assets/data/servers/${interaction.guild.id}/codes.json`, codeFile)) {
-        return `Successfully added ${counter} codes`
+        return `Successfully added ${counter} codes (${parsedCodeArray.length - counter} duplicates)`
     } else {
         return "There was an error adding the codes."
     }
