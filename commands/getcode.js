@@ -28,6 +28,6 @@ module.exports = {
         .setName('getcode')
         .setDescription('Gets a clan invite code.'),
     async execute(client, interaction) {
-        return await interaction.reply({ content: trygetCode(interaction), ephemeral: true })
+        return { content: trygetCode(interaction), ephemeral: true }
     },
 }

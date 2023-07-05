@@ -56,11 +56,11 @@ client.on('interactionCreate', async interaction => {
 		if (!command) return;
 	
 		try {
-			await command.execute(client, interaction);
+			await interaction.deferReply()
+			await interaction.editReply(await command.execute(client, interaction));
 			logCommand(client, interaction, true)
 		} catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 			logCommand(client, interaction, false)
 		}
 	}	else if (interaction.isAutocomplete()) {

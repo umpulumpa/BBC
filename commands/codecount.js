@@ -19,6 +19,6 @@ module.exports = {
         .setName('codecount')
         .setDescription('Gets the amount of available codes.'),
     async execute(client, interaction) {
-        return await interaction.reply({ content: codeCount(interaction), ephemeral: true })
+        return { content: codeCount(interaction), ephemeral: true }
     },
 }

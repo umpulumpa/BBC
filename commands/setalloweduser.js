@@ -35,6 +35,6 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(client, interaction) {
-        return await interaction.reply({ content: await setAllowedUser(client, interaction), ephemeral: true })
+        return { content: await setAllowedUser(client, interaction), ephemeral: true }
     },
 }

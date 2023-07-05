@@ -35,9 +35,9 @@ module.exports = {
         .setDescription('Removes all old game codes.'),
     async execute(client, interaction) {
         if (checkAllowed(interaction) || await checkAdmin(client, interaction)) {
-            return await interaction.reply({ content: gameUpdate(interaction), ephemeral: true })
+            return { content: gameUpdate(interaction), ephemeral: true }
         } else {
-            return await interaction.reply({ content: "You don't have permission to execute this command.", ephemeral: true })
+            return { content: "You don't have permission to execute this command.", ephemeral: true }
         }
     },
 }

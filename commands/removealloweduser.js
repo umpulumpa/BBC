@@ -36,6 +36,6 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(client, interaction) {
-        return await interaction.reply({ content: await removeAllowedUser(client, interaction), ephemeral: true })
+        return { content: await removeAllowedUser(client, interaction), ephemeral: true }
     },
 }

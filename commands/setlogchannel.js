@@ -31,6 +31,6 @@ module.exports = {
                 .addChannelTypes(ChannelType.GuildText)
         ),
     async execute(client, interaction) {
-        return await interaction.reply({ content: await setLogChannel(client, interaction), ephemeral: true })
+        return { content: await setLogChannel(client, interaction), ephemeral: true }
     },
 }
