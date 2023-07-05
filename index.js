@@ -56,7 +56,7 @@ client.on('interactionCreate', async interaction => {
 		if (!command) return;
 	
 		try {
-			await interaction.deferReply()
+			await interaction.deferReply({ephemeral: true})
 			await interaction.editReply(await command.execute(client, interaction));
 			logCommand(client, interaction, true)
 		} catch (error) {
