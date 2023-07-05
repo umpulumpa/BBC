@@ -19,6 +19,7 @@ function tryAddCodes(interaction) {
     const gameVersion = "v10"
     const dateadded = Date.now()
     let parsedCodeArray = codes.split(/,|\s/)
+    let counter = 0
     parsedCodeArray.forEach(code => {
         if (code == undefined || code == "") {
             return
@@ -30,10 +31,13 @@ function tryAddCodes(interaction) {
             dateadded: dateadded,
         }
         const found = codeFile.some(acode => acode.code === code);
-        if (!found) codeFile.push(codeObject);
+        if (!found)  {
+            codeFile.push(codeObject)
+            counter += 1
+        };
     });
     if (trySetFile(`./assets/data/servers/${interaction.guild.id}/codes.json`, codeFile)) {
-        return `Successfully added ${parsedCodeArray.length} codes`
+        return `Successfully added ${counter} codes`
     } else {
         return "There was an error adding the codes."
     }
