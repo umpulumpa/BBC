@@ -61,6 +61,11 @@ client.on('interactionCreate', async interaction => {
 			logCommand(client, interaction, true)
 		} catch (error) {
 			console.error(error);
+			try {
+				await interaction.editReply({content: "Something went wrong"})
+			} catch (error) {
+				
+			}
 			logCommand(client, interaction, false)
 		}
 	}	else if (interaction.isAutocomplete()) {
