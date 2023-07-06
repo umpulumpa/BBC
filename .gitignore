@@ -3,3 +3,5 @@
 /node_modules
 /invitelink.txt
 /assets/data/servers/
+/twitch-bot/details.txt
+/twitch-bot/.env
