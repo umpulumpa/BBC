@@ -48,26 +48,29 @@ for (const file of eventFiles) {
     }
 }
 
+async function executeNormalCommand(interaction, command) {
+	try {
+		await interaction.deferReply({ephemeral: true});
+		await interaction.editReply(await command.execute(client, interaction));
+		logCommand(client, interaction, true)
+	} catch (error) {
+		console.error(error);
+		try {
+			await interaction.editReply({content: "Something went wrong"})
+		} catch (error) {
+			
+		}
+		logCommand(client, interaction, false)
+	}
+}
 
 client.on('interactionCreate', async interaction => {
 	if (interaction.isChatInputCommand()) {
 		const command = client.commands.get(interaction.commandName);
 
 		if (!command) return;
-	
-		try {
-			await interaction.deferReply({ephemeral: true})
-			await interaction.editReply(await command.execute(client, interaction));
-			logCommand(client, interaction, true)
-		} catch (error) {
-			console.error(error);
-			try {
-				await interaction.editReply({content: "Something went wrong"})
-			} catch (error) {
-				
-			}
-			logCommand(client, interaction, false)
-		}
+		await executeNormalCommand(interaction, command)
+
 	}	else if (interaction.isAutocomplete()) {
 		const command = interaction.client.commands.get(interaction.commandName);
 
@@ -81,9 +84,25 @@ client.on('interactionCreate', async interaction => {
 		} catch (error) {
 			console.error(error);
 		}
+	}	else if (interaction.isButton()) {
+			const command = client.commands.get(interaction.customId);
+			if (command) {
+				interaction.commandName = interaction.customId;
+				await executeNormalCommand(interaction, command)
+			}
+	} 	else if (interaction.isStringSelectMenu()) {
+			if (interaction.message.interaction) {
+				const command = client.commands.get(interaction.message.interaction.commandName);
+				if (command) {
+					try {
+						await interaction.deferUpdate({ephemeral: true})
+						await interaction.channel.send(await command.execute(client, interaction));
+					} catch (error) {
+						console.error(error);
+					}
+				}
+			}		
 	}
-
-
 });
 
 // Login to Discord with your client's token
