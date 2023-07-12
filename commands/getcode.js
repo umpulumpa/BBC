@@ -12,11 +12,10 @@ async function trygetCode(client, interaction) {
         let userObj = limitFile.findIndex(item => item.userId === interaction.user.id)
         if (limitFile[userObj] != undefined && userObj > -1) {
             if (limitFile[userObj].currentCount != "*" && limitFile[userObj].limit >= limitFile[userObj].currentCount) {
-              return false
+              return "You can only claim 1 code"
             } else {
               limitFile[userObj].currentCount += 1
               limitFile[userObj].lastUpdate = Date.now()
-              return true
             }
           } else {
             const userLimits =  {
